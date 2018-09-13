@@ -1,0 +1,22 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "A directory for awesome camp sites",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "camp",
+    "express",
+    "js",
+    "ejs"
+  ],
+  "author": "Peter Ayeni",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "request": "^2.88.0"
+  }
+}
