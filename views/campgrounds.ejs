@@ -1,11 +1,18 @@
 <% include partials/header %>
-<h1>List of Camp Grounds</h1>
 
-<a href="/campgrounds/new">Add new campgrounds</a>
-<% campgrounds.forEach((campground) => { %>
-    <div>
-        <h4><%= campground.name %></h4>
-        <img src="<%= campground.image %>">
-    </div>
-<% }) %>
+<main class="main-content">
+    <section class="section">
+        <div class="container">
+            <a href="/campgrounds/create">Add new campgrounds</a>
+
+            <% campgrounds.forEach((campground) => { %>
+                <div>
+                    <h4><%= campground.name %></h4>
+                    <img src="<%= campground.image %>">
+                </div>
+            <% }) %>
+            
+        </div>
+    </section>
+</main>
 <% include partials/footer %>

@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
-
+app.use(express.static(__dirname + '/public'))
 const campgrounds = [
     {
         name: "Prince Camp",
@@ -29,8 +29,8 @@ app.get('/campgrounds', (req, res) => {
     res.render('campgrounds', {campgrounds: campgrounds})
 })
 
-app.post("/campgrounds", (re, res) => {
-    
+app.post('/campgrounds', (req, res) => {
+
     // get date from form and add to campgrounds array
     let name = req.body.name 
     let image = req.body.image
@@ -41,8 +41,8 @@ app.post("/campgrounds", (re, res) => {
     res.redirect('/campgrounds')
 })
 
-app.get("/campgrounds/new", (req, res) => {
-    res.render("new")
+app.get('/campgrounds/create', (req, res) => {
+    res.render('create')
 })
 
 app.listen(9000, () => console.log("Yelp Camp Server Started"))
