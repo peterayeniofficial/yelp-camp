@@ -3,21 +3,19 @@
 <main class="main-content">
     <section class="section">
         <div class="container">
-            <a href="/campgrounds/new">Add new campgrounds</a>
+            <a href="/campgrounds/">See all Campgrounds</a>
             <div class="row gap-y">
-                <% campgrounds.forEach((campground) => { %>
             
                     <div class="col-12 col-lg-4">
                         <div class="card">
                             <img class="card-img-top" src="<%= campground.image %>" alt="Card image cap">
                             <div class="card-body">
                               <h5 class="card-title"><%= campground.name %></h5>
-                              <a class="fs-12 fw-600" href="/campgrounds/<%= campground._id %>">More info<i class="fa fa-angle-right pl-1"></i></a>
+                              <p><%= campground.description %></p>
                             </div>
                         </div>
                     </div>
                
-                <% }) %>
         </div>
             
         </div>
