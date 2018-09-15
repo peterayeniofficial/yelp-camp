@@ -4,13 +4,20 @@
     <section class="section">
         <div class="container">
             <a href="/campgrounds/create">Add new campgrounds</a>
-
-            <% campgrounds.forEach((campground) => { %>
-                <div>
-                    <h4><%= campground.name %></h4>
-                    <img src="<%= campground.image %>">
-                </div>
-            <% }) %>
+            <div class="row gap-y">
+                <% campgrounds.forEach((campground) => { %>
+            
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <img class="card-img-top" src="<%= campground.image %>" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= campground.name %></h5>
+                            </div>
+                        </div>
+                    </div>
+               
+                <% }) %>
+        </div>
             
         </div>
     </section>

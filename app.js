@@ -1,32 +1,35 @@
 const express = require('express')
 const app = express()
 const bodyParser = require("body-parser")
+const mongoose = require("mongoose")
 
+mongoose.connect("mongodb://localhost/yelp_camp")
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
-const campgrounds = [
-    {
-        name: "Prince Camp",
-        image: "https://castawaysontheriver.com/wp-content/uploads/2016/08/Castaways-Camping-1-8-26-16-.jpg"
-    },
-    {
-        name: "Summer Camp",
-        image: "http://www.travelbirbilling.com/wp-content/uploads/camp-pic1.jpg"
-    },
-    {
-        name: "Kings Camp",
-        image: "http://www.guntherpublications.com/core/wp-content/uploads/2018/01/manali-girls-special-adventure-camp-himachal-pradesh-1xJtgtx-1440x810.jpg"
-    }
-]
+
+// Schema Setup 
+const campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String
+})
+
+const Campground = mongoose.model("Campground", campgroundSchema)
+
+
 
 app.get('/', (req, res) => {
     res.render('landing')
 })
 
 app.get('/campgrounds', (req, res) => {
-    
-    res.render('campgrounds', {campgrounds: campgrounds})
+    Campground.find({}, function(err, campgrounds){
+        if(err){
+            console.log(err)
+        } else{
+            res.render('campgrounds', {campgrounds: campgrounds})
+        }
+    })
 })
 
 app.post('/campgrounds', (req, res) => {
@@ -35,10 +38,16 @@ app.post('/campgrounds', (req, res) => {
     let name = req.body.name 
     let image = req.body.image
     let newCampground = {name: name, image: image}
-    campgrounds.push(newCampground)
-
-    // redirect to campgrounds
-    res.redirect('/campgrounds')
+    Campground.create(newCampground, (err, newlyCreated) => {
+        if(err){
+            console.log(err)
+        }else {
+            console.log("New Camp Added to DB")
+            console.log(newlyCreated)
+            // redirect to campgrounds
+            res.redirect('/campgrounds')
+        }
+    })
 })
 
 app.get('/campgrounds/create', (req, res) => {
