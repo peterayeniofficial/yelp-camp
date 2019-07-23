@@ -15,9 +15,17 @@
                             </div>
                         </div>
                     </div>
-               
-        </div>
-            
+                    <div class="col-12 col-lg-4">
+                            <% campground.comments.forEach(function(comment){%>
+                                <div class="card">
+                                    <p>
+                                        <%= comment.author %> - <%= comment.text %>
+                                    </p>
+                                </div>
+                            <%}) %>
+
+                    </div>
+            </div>
         </div>
     </section>
 </main>
