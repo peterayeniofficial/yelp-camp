@@ -3,23 +3,18 @@ const app = express()
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 
+const seedDb = require("./seeds")
+const Campground = require("./models/campgrounds")
+
 mongoose.connect("mongodb://localhost/yelp_camp")
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
 
-// Schema Setup 
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-})
-
-const Campground = mongoose.model("Campground", campgroundSchema)
-
-// Create new Camp Ground
-/* Campground.create({
-    name: "Sally Camp",
+seedDb()
+/* // Create new Camp Ground
+Campground.create({
+    name: "Waley Camp",
     image: "https://s3.amazonaws.com/imagescloud/images/medias/camping/MathieuDupuis-23.jpg",
     description: "Tent Camping - Find Your Campground in Quebec - Sepaq"
 }, (err, newCamp) => {
@@ -35,11 +30,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/campgrounds', (req, res) => {
-    Campground.find({}, function(err, campgrounds){
+    Campground.find({}, function(err, allCampgrounds){
         if(err){
             console.log(err)
         } else{
-            res.render('campgrounds', {campgrounds: campgrounds})
+            res.render('campgrounds', {campgrounds: allCampgrounds})
         }
     })
 })
@@ -77,7 +72,7 @@ app.get("/campgrounds/:id", (req, res) =>{
             res.render("campground", {campground: campground})
 
         }
-    })
+    }) 
 })
 
 app.listen(9000, () => console.log("Yelp Camp Server Started"))
