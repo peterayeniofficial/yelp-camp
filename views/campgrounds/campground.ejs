@@ -3,10 +3,9 @@
 <main class="main-content">
     <section class="section">
         <div class="container">
-            <a href="/campgrounds/">See all Campgrounds</a>
-            <div class="row gap-y">
+            <div class="row">
             
-                    <div class="col-12 col-lg-4">
+                    <div class="col-md-8 col-xl-9">
                         <div class="card">
                             <img class="card-img-top" src="<%= campground.image %>" alt="Card image cap">
                             <div class="card-body">
@@ -14,18 +13,38 @@
                               <p><%= campground.description %></p>
                             </div>
                         </div>
+                        <div>
+                                <% campground.comments.forEach(function(comment){%>
+                                    <div class="card">
+                                        <p>
+                                            <%= comment.author %> - <%= comment.text %>
+                                        </p>
+                                    </div>
+                                <%}) %>
+    
+                        </div>
                     </div>
-                    <div class="col-12 col-lg-4">
-                            <% campground.comments.forEach(function(comment){%>
-                                <div class="card">
-                                    <p>
-                                        <%= comment.author %> - <%= comment.text %>
-                                    </p>
-                                </div>
-                            <%}) %>
+                    <div class="col-md-4 col-xl-3">
+                        <div class="sidebar px-4 py-md-0">
+                            <h2>Yelp Camp</h2>
+                            <hr>
 
+                            <h6 class="sidebar-title">Categories</h6>
+                            <div class="row link-color-default fs-14 lh-24">
+                            <div class="col-6"><a href="#">News</a></div>
+                            <div class="col-6"><a href="#">Updates</a></div>
+                            <div class="col-6"><a href="#">Design</a></div>
+                            <div class="col-6"><a href="#">Marketing</a></div>
+                            <div class="col-6"><a href="#">Partnership</a></div>
+                            <div class="col-6"><a href="#">Product</a></div>
+                            <div class="col-6"><a href="#">Hiring</a></div>
+                            <div class="col-6"><a href="#">Offers</a></div>
+                            </div>
+
+                        </div>
                     </div>
             </div>
+           
         </div>
     </section>
 </main>
