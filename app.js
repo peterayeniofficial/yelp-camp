@@ -43,16 +43,22 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user
+    next()
+})
+
 app.get('/', (req, res) => {
     res.render('landing')
 })
 
 app.get('/campgrounds', (req, res) => {
+
     Campground.find({}, function(err, allCampgrounds){
         if(err){
             console.log(err)
         } else{
-            res.render('campgrounds/campgrounds', {campgrounds: allCampgrounds})
+            res.render('campgrounds/campgrounds', {campgrounds: allCampgrounds, currentUser: req.user})
         }
     })
 })
@@ -94,7 +100,7 @@ app.get("/campgrounds/:id", (req, res) =>{
 })
 
 // comments
-app.get("/campgrounds/:id/comments/new", (req, res) => {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, (req, res) => {
     // find campground by ID
     Campground.findById(req.params.id, (err, campground) => {
         if (err) {
@@ -105,7 +111,7 @@ app.get("/campgrounds/:id/comments/new", (req, res) => {
     })
 })
 
-app.post('/campgrounds/:id/comments', (req, res) => {
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
     Campground.findById(req.params.id, (err, campground) => {
         if (err) {
             console.log(err)
@@ -161,5 +167,17 @@ app.post('/login', passport.authenticate("local",
     (req, res) => {
 
 })
+
+app.get("/logout", (req, res) => {
+    req.logout()
+    res.redirect("/campgrounds")
+})
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect("/login")
+}
 
 app.listen(9000, () => console.log("Yelp Camp Server Started"))

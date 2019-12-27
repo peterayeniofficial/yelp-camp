@@ -16,26 +16,31 @@
       
               <div class="navbar-left">
                 <button class="navbar-toggler" type="button">&#9776;</button>
-                <a class="navbar-brand bg-success" href="/">
-                  YelpCamp
+                <a class="navbar-brand " href="/">
+                  <img class="logo-dark" src="/img/YelpCamp.png" alt="logo">
+
                 </a>
               </div>
       
               <section class="navbar-mobile">
                 <span class="navbar-divider d-mobile-none"></span>
       
-                <ul class="nav nav-navbar">
-                  <li class="nav-item">
+                <nav class="nav nav-navbar mr-auto">
                     <a class="nav-link" href="/campgrounds">Camps</span></a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/campgrounds/new">Add new camp ground</span></a>
-                    </li>
-                </ul>
-              </section>
-      
-              <a class="btn btn-xs btn-round btn-success" href="/register">Login</a>
-      
+                    <a class="nav-link" href="/campgrounds/new">Add new camp ground</span></a>
+                </nav>
+              
+              <div>
+                <% if(!currentUser){ %>
+                  <a class="btn btn-sm btn-success" href="/login">Login</a>
+
+                <% } else { %>
+                  <a class="btn btn-sm btn-light ml-lg-5 mr-2" href="#">Hi! <%= currentUser.username %></a>
+                  <a class="btn btn-sm btn-success" href="/logout">Logout</a>
+
+                <% } %>
+              </div>
+            </section>
             </div>
           </nav><!-- /.navbar -->
     
