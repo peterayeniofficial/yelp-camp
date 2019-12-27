@@ -1,19 +1,26 @@
 <% include partials/header %>
 
-<header class="header text-white pt-12 pb-10" style="background-image: linear-gradient(-45deg, #667eea 0%, #764ba2 100%);">
-    <div class="container">
-      <h1 class="display-4">Welcome to Yelp Camp</h1>
-      <p class="lead-2 mt-6">All things Camping - Get Involved</p>
-    </div>
-</header>
-
-<main class="main-content">
-    <section class="section">
+    <!-- Header -->
+    <header class="header h-fullscreen">
         <div class="container">
-            <a href="/campgrounds">View All</a>
+          <div class="row align-items-center h-100">
+  
+            <div class="col-md-5 mr-auto">
+              <h1 class="fw-600">Welcome to Yelp Camp</h1>
+              <br>
+              <p class="lead-2">All things Camping - Get Involved</p>
+              <br>
+              <a class="btn btn-xl btn-round btn-info" href="/campgrounds">View All</a>
+            </div>
+  
+  
+            <div class="col-md-6">
+              <img src="/img/camp-image.png" alt="Camping">
+            </div>
+  
+          </div>
         </div>
-    </section>
-</main>
+      </header><!-- /.header -->
 
 
 <% include partials/footer %>

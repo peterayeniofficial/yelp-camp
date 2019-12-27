@@ -1,0 +1,28 @@
+<% include ./partials/header %>
+
+<section class="section text-center">
+  <div class="container">
+
+    <header class="section-header">
+      <h2>Login</h2>
+    </header>
+
+
+    <div class="row">
+      <form class="col-md-4 col-xl-4 mx-auto input-border" action="/login" method="POST">
+        <div class="form-group">
+          <input name="username" type="text" class="form-control form-control-lg" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+          <input type="password" name="password" class="form-control form-control-lg" placeholder="Password">
+        </div>
+
+        <button class="btn btn-block btn-xl btn-success">Login</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<% include ./partials/footer %>

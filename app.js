@@ -2,12 +2,15 @@ const express = require('express')
 const app = express()
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
+const passport = require('passport')
+LocalStrategy = require("passport-local")
 
 const seedDb = require("./seeds")
 const Campground = require("./models/campgrounds")
 const Comment = require("./models/comments")
+const User = require("./models/user")
 
-mongoose.connect("mongodb://localhost/yelp_camp")
+mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true})
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
@@ -25,6 +28,20 @@ Campground.create({
         console.log(newCamp)
     }
 }) */
+
+// Passport Configuration
+
+app.use(require("express-session")({
+    secret: "dndjhdhdhddiw93usnsjddhddd",
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.get('/', (req, res) => {
     res.render('landing')
@@ -104,6 +121,45 @@ app.post('/campgrounds/:id/comments', (req, res) => {
             })
         }
     })
+})
+
+
+// Register Routes
+
+app.get("/register", (req, res) => {
+    res.render("register")
+})
+
+app.post("/register", (req, res) => {
+    const newUser = new User({username: req.body.username})
+    User.register(newUser, req.body.password, (err, user) => {
+        if (err) {
+            console.log(err)
+            return res.render("register")
+        }
+
+        passport.authenticate("local")(req, res, function() {
+            res.redirect("/campgrounds")
+        })
+
+
+    })
+
+})
+
+// Login Route
+
+app.get('/login', (req, res) => {
+    res.render("login")
+})
+
+app.post('/login', passport.authenticate("local",
+    {
+        successRedirect: "/campgrounds",
+        failureRedirect: "/login"
+    }), 
+    (req, res) => {
+
 })
 
 app.listen(9000, () => console.log("Yelp Camp Server Started"))
