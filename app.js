@@ -18,8 +18,8 @@ const indexRoutes = require("./routes/index")
 const app = express()
 const port = process.env.PORT || 5000
 
-const uri = process.env.ATLAS_URI
-mongoose.connect("mongodb+srv://peter:WAwUKm7wTaWMHzdN@sampledata-kxl6s.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+const uri = process.env.DATABASEURL
+mongoose.connect(uri, {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
 
 const connection = mongoose.connection
 connection.once('open', () => {
