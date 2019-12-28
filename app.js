@@ -6,7 +6,7 @@ const flash = require("connect-flash")
 const passport = require('passport')
 const LocalStrategy = require("passport-local")
 const methodOverride = require("method-override")
-
+require('dotenv').config()
 const seedDb = require("./seeds")
 
 const User = require("./models/user")
@@ -15,8 +15,14 @@ const commentRoutes = require("./routes/comments")
 const campgroundRoutes = require("./routes/campgrounds")
 const indexRoutes = require("./routes/index")
 
+const uri = process.env.ATLAS_URI
+mongoose.connect("mongodb+srv://peter:WAwUKm7wTaWMHzdN@sampledata-kxl6s.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
 
-mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+const connection = mongoose.connection
+connection.once('open', () => {
+  console.log("MongoDB database connection Established")
+})
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
