@@ -11,12 +11,14 @@
                             <div class="card-body">
                               <h5 class="card-title"><%= campground.name %></h5>
                               <p>Created by: <%= campground.author.username %></p>
-                              <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                            
-                              <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-danger">Delete</button>
-                              </form>
+                             
                               <p><%= campground.description %></p>
+                              <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+                                    <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                                    <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger">Delete</button>
+                                    </form>
+                              <% } %>
                               <a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add Comment</a>
 
                             </div>
