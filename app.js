@@ -3,7 +3,8 @@ const app = express()
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const passport = require('passport')
-LocalStrategy = require("passport-local")
+const LocalStrategy = require("passport-local")
+const methodOverride = require("method-override")
 
 const seedDb = require("./seeds")
 
@@ -14,24 +15,13 @@ const campgroundRoutes = require("./routes/campgrounds")
 const indexRoutes = require("./routes/index")
 
 
-mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride("_method"))
 
-//seedDb()
-/* // Create new Camp Ground
-Campground.create({
-    name: "Waley Camp",
-    image: "https://s3.amazonaws.com/imagescloud/images/medias/camping/MathieuDupuis-23.jpg",
-    description: "Tent Camping - Find Your Campground in Quebec - Sepaq"
-}, (err, newCamp) => {
-    if(err){
-        console.log(err)
-    }else {
-        console.log(newCamp)
-    }
-}) */
+// seedDb()
 
 // Passport Configuration
 

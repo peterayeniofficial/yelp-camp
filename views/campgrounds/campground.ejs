@@ -10,6 +10,12 @@
                             <img class="card-img-top" src="<%= campground.image %>" alt="Card image cap">
                             <div class="card-body">
                               <h5 class="card-title"><%= campground.name %></h5>
+                              <p>Created by: <%= campground.author.username %></p>
+                              <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                            
+                              <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                              </form>
                               <p><%= campground.description %></p>
                               <a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add Comment</a>
 
@@ -19,7 +25,7 @@
                                 <% campground.comments.forEach(function(comment){%>
                                     <div class="card">
                                         <p>
-                                            <%= comment.author %> - <%= comment.text %>
+                                            <%= comment.author.username %> - <%= comment.text %>
                                         </p>
                                     </div>
                                 <%}) %>

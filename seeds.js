@@ -27,29 +27,29 @@ const seedDb = () => {
         }
         console.log("remove campgrounds")
          // create camp ground
-        data.forEach((seed) => {
-            Campground.create(seed, (err, campground) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    console.log("Added a camp ground")
-                    // create a comment
-                    Comment.create({
-                        text: "Cool place to be",
-                        author: "Homer",
+        // data.forEach((seed) => {
+        //     Campground.create(seed, (err, campground) => {
+        //         if (err) {
+        //             console.log(err)
+        //         } else {
+        //             console.log("Added a camp ground")
+        //             // create a comment
+        //             Comment.create({
+        //                 text: "Cool place to be",
+        //                 author: "Homer",
 
-                    }, (err, comment) => {
-                        if (err) {
-                            console.log(err)
-                        }else {
-                            campground.comments.push(comment)
-                            campground.save()
-                            console.log("Comment added")
-                        }
-                    })
-                }
-            })
-        })
+        //             }, (err, comment) => {
+        //                 if (err) {
+        //                     console.log(err)
+        //                 }else {
+        //                     campground.comments.push(comment)
+        //                     campground.save()
+        //                     console.log("Comment added")
+        //                 }
+        //             })
+        //         }
+        //     })
+        // })
     })
    
 }
